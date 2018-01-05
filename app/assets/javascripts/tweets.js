@@ -5,15 +5,22 @@ document.addEventListener('DOMContentLoaded', function(){
       $.ajax({
         url: form.getAttribute('action'),
         method: form.getAttribute('method'),
-        dataType:"html",
-        data:$(form).serialize()
+        dataType: "json",
+        data: $(form).serialize()
       }).done(function(data){
+        var list = document.querySelector('.tweets')
+            li = document.createElement('li')
+            var li = `<li class="tweet">
+ 				      <p>${data.message}</p>
+ 				    <time>${data.created_at.strftime('%b %e, %l:%M %p')}</time>
+			     </li>`;
+        $(list).prepend(li)
         var inputField = document.querySelector('#tweet_message')
         inputField.value = "";
-        var list = document.querySelector('.tweets')
-        $(list).prepend(data)
+
 
       })
+
 
     })
 
